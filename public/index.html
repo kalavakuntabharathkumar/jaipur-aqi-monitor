@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JaipurAir - Hyperlocal AQI Monitor</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1>🌬️ JaipurAir</h1>
+      <p class="subtitle">Hyperlocal AQI Monitor &amp; Alert System</p>
+      <div class="status-indicators">
+        <span id="ws-status" class="status offline">● Disconnected</span>
+        <span id="last-update">Last update: —</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Station Selector -->
+    <section class="station-selector">
+      <label for="station-select">Monitoring Station:</label>
+      <select id="station-select" aria-label="Select monitoring station"></select>
+    </section>
+
+    <!-- Current AQI Cards -->
+    <section class="current-readings" aria-label="Current pollutant readings">
+      <div class="card aqi-card" id="aqi-card">
+        <div class="card-header">
+          <h3>AQI</h3>
+          <span class="aqi-category" id="aqi-category">—</span>
+        </div>
+        <div class="aqi-value" id="aqi-value">—</div>
+      </div>
+      <div class="card pollutant-card" id="pm25-card">
+        <h3>PM2.5</h3>
+        <div class="value" id="pm25-value">—</div>
+        <div class="unit">µg/m³</div>
+        <div class="prediction" id="pm25-prediction"></div>
+      </div>
+      <div class="card pollutant-card" id="pm10-card">
+        <h3>PM10</h3>
+        <div class="value" id="pm10-value">—</div>
+        <div class="unit">µg/m³</div>
+      </div>
+      <div class="card pollutant-card" id="no2-card">
+        <h3>NO₂</h3>
+        <div class="value" id="no2-value">—</div>
+        <div class="unit">µg/m³</div>
+      </div>
+      <div class="card pollutant-card" id="so2-card">
+        <h3>SO₂</h3>
+        <div class="value" id="so2-value">—</div>
+        <div class="unit">µg/m³</div>
+      </div>
+      <div class="card pollutant-card" id="co-card">
+        <h3>CO</h3>
+        <div class="value" id="co-value">—</div>
+        <div class="unit">mg/m³</div>
+      </div>
+      <div class="card pollutant-card" id="o3-card">
+        <h3>O₃</h3>
+        <div class="value" id="o3-value">—</div>
+        <div class="unit">µg/m³</div>
+      </div>
+    </section>
+
+    <!-- Charts -->
+    <section class="charts">
+      <div class="chart-container">
+        <h2>PM2.5 Trend (24h) + Prediction</h2>
+        <canvas id="pm25-chart" aria-label="PM2.5 concentration over 24 hours with prediction"></canvas>
+      </div>
+      <div class="chart-container">
+        <h2>All Pollutants (24h)</h2>
+        <canvas id="multi-chart" aria-label="All pollutant concentrations over 24 hours"></canvas>
+      </div>
+    </section>
+
+    <!-- Alerts -->
+    <section class="alerts" id="alerts-section" aria-live="polite">
+      <h2>Active Alerts</h2>
+      <div id="alerts-list" class="alerts-list"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Data source: <a href="https://cpcb.gov.in" target="_blank" rel="noopener">CPCB</a> | Weather: <a href="https://openweathermap.org" target="_blank" rel="noopener">OpenWeatherMap</a> | ML: Scikit-learn LinearRegression</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
